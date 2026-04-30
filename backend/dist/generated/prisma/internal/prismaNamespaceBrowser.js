@@ -48,7 +48,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryMode = exports.SortOrder = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.TaskActivityScalarFieldEnum = exports.TaskCommentScalarFieldEnum = exports.TaskScalarFieldEnum = exports.ProjectScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -75,7 +75,11 @@ exports.JsonNull = runtime.JsonNull;
  */
 exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
-    User: 'User'
+    User: 'User',
+    Project: 'Project',
+    Task: 'Task',
+    TaskComment: 'TaskComment',
+    TaskActivity: 'TaskActivity'
 };
 /*
  * Enums
@@ -95,6 +99,43 @@ exports.UserScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
+exports.ProjectScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.TaskScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    priority: 'priority',
+    deadline: 'deadline',
+    createdById: 'createdById',
+    assignedToId: 'assignedToId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.TaskCommentScalarFieldEnum = {
+    id: 'id',
+    taskId: 'taskId',
+    userId: 'userId',
+    comment: 'comment',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.TaskActivityScalarFieldEnum = {
+    id: 'id',
+    taskId: 'taskId',
+    userId: 'userId',
+    action: 'action',
+    description: 'description',
+    createdAt: 'createdAt'
+};
 exports.SortOrder = {
     asc: 'asc',
     desc: 'desc'
@@ -102,4 +143,8 @@ exports.SortOrder = {
 exports.QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
+};
+exports.NullsOrder = {
+    first: 'first',
+    last: 'last'
 };

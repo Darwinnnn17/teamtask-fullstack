@@ -9,8 +9,18 @@
 * 🟢 You can import this file directly.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Role = void 0;
+exports.TaskPriority = exports.TaskStatus = exports.Role = void 0;
 exports.Role = {
     ADMIN: 'ADMIN',
     MEMBER: 'MEMBER'
+};
+exports.TaskStatus = {
+    TODO: 'TODO',
+    IN_PROGRESS: 'IN_PROGRESS',
+    DONE: 'DONE'
+};
+exports.TaskPriority = {
+    LOW: 'LOW',
+    MEDIUM: 'MEDIUM',
+    HIGH: 'HIGH'
 };
