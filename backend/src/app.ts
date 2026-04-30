@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 import projectRoutes from "./routes/project.routes";
+import taskRoutes from "./routes/task.routes";
+import commentRoutes from "./routes/comment.routes";
 
 const app = express();
 
@@ -16,5 +18,7 @@ app.get("/", (_req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api", commentRoutes);
 
 export default app;
