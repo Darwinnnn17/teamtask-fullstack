@@ -80,12 +80,19 @@ export default function DashboardPage() {
               </div>
             )}
 
-            <button
-              onClick={handleLogout}
-              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-            >
-              Logout
-            </button>
+<button
+  onClick={() => router.push("/projects")}
+  className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+>
+  Projects
+</button>
+
+<button
+  onClick={handleLogout}
+  className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+>
+  Logout
+</button>
           </div>
         </div>
       </header>
