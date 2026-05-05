@@ -13,6 +13,26 @@ export type TaskProject = {
   description?: string | null;
 };
 
+export type TaskComment = {
+  id: string;
+  taskId: string;
+  userId: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  user?: TaskUser;
+};
+
+export type TaskActivity = {
+  id: string;
+  taskId: string;
+  userId: string;
+  action: string;
+  description?: string | null;
+  createdAt: string;
+  user?: TaskUser;
+};
+
 export type Task = {
   id: string;
   projectId: string;
@@ -28,6 +48,8 @@ export type Task = {
   project?: TaskProject;
   createdBy?: TaskUser;
   assignedTo?: TaskUser | null;
+  comments?: TaskComment[];
+  activities?: TaskActivity[];
   _count?: {
     comments: number;
     activities: number;
@@ -45,6 +67,20 @@ export type TaskResponse = {
   message: string;
   data: {
     task: Task;
+  };
+};
+
+export type TaskCommentsResponse = {
+  message: string;
+  data: {
+    comments: TaskComment[];
+  };
+};
+
+export type TaskCommentResponse = {
+  message: string;
+  data: {
+    comment: TaskComment;
   };
 };
 
