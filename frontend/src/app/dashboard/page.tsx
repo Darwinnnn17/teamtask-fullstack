@@ -48,9 +48,10 @@ export default function DashboardPage() {
             Gagal memuat dashboard
           </h1>
           <p className="mt-2 text-sm text-gray-600">{error}</p>
+
           <button
             onClick={handleLogout}
-            className="mt-4 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white"
+            className="mt-4 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800"
           >
             Kembali ke Login
           </button>
@@ -70,7 +71,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {user && (
               <div className="hidden text-right sm:block">
                 <p className="text-sm font-medium text-gray-900">
@@ -80,19 +81,26 @@ export default function DashboardPage() {
               </div>
             )}
 
-<button
-  onClick={() => router.push("/projects")}
-  className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
->
-  Projects
-</button>
+            <button
+              onClick={() => router.push("/projects")}
+              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+            >
+              Projects
+            </button>
 
-<button
-  onClick={handleLogout}
-  className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
->
-  Logout
-</button>
+            <button
+              onClick={() => router.push("/tasks")}
+              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+            >
+              Tasks
+            </button>
+
+            <button
+              onClick={handleLogout}
+              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </header>
@@ -112,31 +120,37 @@ export default function DashboardPage() {
               value={stats.totalProjects}
               description="Semua project yang dibuat"
             />
+
             <StatCard
               title="Total Tasks"
               value={stats.totalTasks}
               description="Semua task dalam sistem"
             />
+
             <StatCard
               title="Todo"
               value={stats.todoTasks}
               description="Task yang belum dikerjakan"
             />
+
             <StatCard
               title="In Progress"
               value={stats.inProgressTasks}
               description="Task yang sedang berjalan"
             />
+
             <StatCard
               title="Done"
               value={stats.doneTasks}
               description="Task yang sudah selesai"
             />
+
             <StatCard
               title="Overdue"
               value={stats.overdueTasks}
               description="Task melewati deadline"
             />
+
             <StatCard
               title="High Priority"
               value={stats.highPriorityTasks}
