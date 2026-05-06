@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import AppLayout from "@/components/layout/AppLayout";
 import { useTaskDetail } from "@/hooks/useTaskDetail";
 import CommentForm from "@/components/tasks/CommentForm";
 import CommentList from "@/components/tasks/CommentList";
 import ActivityLog from "@/components/tasks/ActivityLog";
 
 export default function TaskDetailPage() {
-  const router = useRouter();
   const params = useParams<{ id: string }>();
 
   const {
@@ -21,72 +21,40 @@ export default function TaskDetailPage() {
   } = useTaskDetail(params.id);
 
   useEffect(() => {
-    const token = localStorage.getItem("teamtask_token");
-
-    if (!token) {
-      router.push("/login");
-    }
-  }, [router]);
+    // AppLayout handles authentication.
+  }, []);
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50">
-        <p className="text-gray-600">Memuat detail task...</p>
-      </main>
+      <AppLayout>
+        <section className="flex min-h-[calc(100vh-80px)] items-center justify-center">
+          <p className="text-gray-600">Memuat detail task...</p>
+        </section>
+      </AppLayout>
     );
   }
 
   if (error || !task) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="rounded-2xl border bg-white p-6 text-center shadow-sm">
-          <h1 className="text-lg font-semibold text-gray-900">
-            Task tidak ditemukan
-          </h1>
-          <p className="mt-2 text-sm text-gray-600">
-            {error || "Task tidak tersedia."}
-          </p>
-
-          <button
-            onClick={() => router.push("/tasks")}
-            className="mt-4 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white"
-          >
-            Kembali ke Tasks
-          </button>
-        </div>
-      </main>
+      <AppLayout>
+        <section className="flex min-h-[calc(100vh-80px)] items-center justify-center px-4">
+          <div className="rounded-2xl border bg-white p-6 text-center shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Task tidak ditemukan
+            </h1>
+            <p className="mt-2 text-sm text-gray-600">
+              {error || "Task tidak tersedia."}
+            </p>
+          </div>
+        </section>
+      </AppLayout>
     );
   }
 
   const activities = task.activities || [];
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">TeamTask</h1>
-            <p className="text-sm text-gray-500">Task Detail</p>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => router.push("/tasks")}
-              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-            >
-              Back to Tasks
-            </button>
-
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-            >
-              Dashboard
-            </button>
-          </div>
-        </div>
-      </header>
-
+    <AppLayout>
       <section className="mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[1fr_380px]">
         <div className="space-y-6">
           <div className="rounded-2xl border bg-white p-6 shadow-sm">
@@ -169,6 +137,6 @@ export default function TaskDetailPage() {
           <ActivityLog activities={activities} />
         </div>
       </section>
-    </main>
+    </AppLayout>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import AppLayout from "@/components/layout/AppLayout";
 import TaskCard from "@/components/tasks/TaskCard";
 import TaskForm from "@/components/tasks/TaskForm";
 import { useProjects } from "@/hooks/useProjects";
@@ -9,7 +8,6 @@ import { useTasks } from "@/hooks/useTasks";
 import { TaskInput, TaskStatus } from "@/types/task";
 
 export default function TasksPage() {
-  const router = useRouter();
   const {
     tasks,
     isLoading,
@@ -21,14 +19,6 @@ export default function TasksPage() {
   } = useTasks();
 
   const { projects } = useProjects();
-
-  useEffect(() => {
-    const token = localStorage.getItem("teamtask_token");
-
-    if (!token) {
-      router.push("/login");
-    }
-  }, [router]);
 
   const handleCreateTask = async (data: TaskInput) => {
     await createTask(data);
@@ -44,39 +34,16 @@ export default function TasksPage() {
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50">
-        <p className="text-gray-600">Memuat tasks...</p>
-      </main>
+      <AppLayout>
+        <section className="flex min-h-[calc(100vh-80px)] items-center justify-center">
+          <p className="text-gray-600">Memuat tasks...</p>
+        </section>
+      </AppLayout>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">TeamTask</h1>
-            <p className="text-sm text-gray-500">Task Management</p>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => router.push("/projects")}
-              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-            >
-              Projects
-            </button>
-
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-            >
-              Dashboard
-            </button>
-          </div>
-        </div>
-      </header>
-
+    <AppLayout>
       <section className="mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[380px_1fr]">
         <TaskForm
           projects={projects}
@@ -121,6 +88,6 @@ export default function TasksPage() {
           )}
         </div>
       </section>
-    </main>
+    </AppLayout>
   );
 }

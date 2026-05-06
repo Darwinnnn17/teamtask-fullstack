@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import AppLayout from "@/components/layout/AppLayout";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ProjectForm from "@/components/projects/ProjectForm";
 import { useProjects } from "@/hooks/useProjects";
 import { ProjectInput } from "@/types/project";
 
 export default function ProjectsPage() {
-  const router = useRouter();
   const {
     projects,
     isLoading,
@@ -17,14 +15,6 @@ export default function ProjectsPage() {
     createProject,
     deleteProject,
   } = useProjects();
-
-  useEffect(() => {
-    const token = localStorage.getItem("teamtask_token");
-
-    if (!token) {
-      router.push("/login");
-    }
-  }, [router]);
 
   const handleCreateProject = async (data: ProjectInput) => {
     await createProject(data);
@@ -36,30 +26,16 @@ export default function ProjectsPage() {
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50">
-        <p className="text-gray-600">Memuat projects...</p>
-      </main>
+      <AppLayout>
+        <section className="flex min-h-[calc(100vh-80px)] items-center justify-center">
+          <p className="text-gray-600">Memuat projects...</p>
+        </section>
+      </AppLayout>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">TeamTask</h1>
-            <p className="text-sm text-gray-500">Project Management</p>
-          </div>
-
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="rounded-lg border px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-          >
-            Dashboard
-          </button>
-        </div>
-      </header>
-
+    <AppLayout>
       <section className="mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[380px_1fr]">
         <ProjectForm
           onSubmit={handleCreateProject}
@@ -102,6 +78,6 @@ export default function ProjectsPage() {
           )}
         </div>
       </section>
-    </main>
+    </AppLayout>
   );
 }
